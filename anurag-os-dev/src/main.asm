@@ -1,8 +1,40 @@
 org 0x7C00
 bits 16
 
+%define     ENDL   0x0D, 0x0A
 
+start:
+    jmp main 
 
+;
+;
+;Prints a String to the screen.
+;Params:
+; - ds:si points to strings
+;
+;
+puts:
+    push si 
+    push ax 
+    push bx 
+
+.loop:
+    lodsb           ;loads the next character in al 
+    or al, al       ;verify if next character is null?
+    jz .done
+    
+
+    mov ah, 0x0E    ;call bios interrupt routine
+    mov bh, 0          
+    int 0x10
+
+    jmp .loop
+
+.done:
+    pop bx
+    pop ax
+    pop si
+    ret
 
 
 main:
@@ -13,12 +45,20 @@ main:
 
     ; setup stack 
     mov ss, ax
-    mov sp, 0x7C00  ; stack grows down
+    mov sp, 0x7C00  ; stack grows downwards from where loaded into memory
 
+; print message 
+    mov si,  msg_hello
+    call puts  
 
     hlt
 
 .halt:
     jmp .halt
+
+
+msg_hello: db  'Hello world!', ENDL, 0
+
+
 times 510-($-$$) db 0
 dw 0AA55h
