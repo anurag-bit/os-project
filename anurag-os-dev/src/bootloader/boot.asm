@@ -97,7 +97,6 @@ main:
     ; print message 
     mov si,  msg_hello
     call puts  
-
     
     cli
     hlt
