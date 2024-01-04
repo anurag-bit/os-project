@@ -93,7 +93,7 @@ main:
 
 
 
-
+    ; preparing delivery of print payload
     ; print message 
     mov si,  msg_hello
     call puts  
