@@ -233,8 +233,8 @@ disk_reset:
     popa
     ret
 
-msg_hello:          db  'Hello world!', ENDL, 0
-msg_read_failed:    db  'Read from disk failed',  ENDL, 0 
+msg_hello:          db  'Trantor: waiting for peripheral enumeration', ENDL, 0
+msg_read_failed:    db  'Reading from disk sda0',  ENDL, 0 
 
 
 times 510-($-$$) db 0
